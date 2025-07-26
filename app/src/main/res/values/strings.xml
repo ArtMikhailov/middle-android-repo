@@ -2,4 +2,6 @@
     <string name="app_name">android practicum custom view</string>
     <string name="xml_screen">XML View</string>
     <string name="compose_screen">Compose</string>
+    <string name="custom_view_group_first_view_name">First view</string>
+    <string name="custom_view_group_second_view_name">Second view</string>
 </resources>
