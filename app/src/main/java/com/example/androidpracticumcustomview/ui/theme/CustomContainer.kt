@@ -8,6 +8,9 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 
+private const val ALPHA_ANIMATION_DURATION = 2000L
+private const val TRANSLATION_ANIMATION_DURATION = 5000L
+
 class CustomContainer @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
@@ -39,16 +42,9 @@ class CustomContainer @JvmOverloads constructor(
         }
         val childZero = getChildAt(0)
         val childOne = getChildAt(1)
-        if (topView == null) {
-            //In case of top view was removed, and added again,
-            // we need to consider child at index 1 as well for placing at top
-            val viewToPlaceAtTop = if (childZero != null && childZero != bottomView) {
-                childZero
-            } else childOne
-            if (viewToPlaceAtTop != null) {
-                topView = viewToPlaceAtTop
-                placeChild(viewToPlaceAtTop, isTopView = true)
-            }
+        if (topView == null && childZero != null) {
+            topView = childZero
+            placeChild(childZero, isTopView = true)
         }
         if (bottomView == null && childOne != null) {
             bottomView = childOne
@@ -105,11 +101,11 @@ class CustomContainer @JvmOverloads constructor(
     private fun animateView(view: View, translationYBy: Float) {
         view.animate()
             .alpha(1.0f)
-            .setDuration(2000)
+            .setDuration(ALPHA_ANIMATION_DURATION)
             .start()
         view.animate()
             .translationYBy(translationYBy)
-            .setDuration(5000)
+            .setDuration(TRANSLATION_ANIMATION_DURATION)
             .start()
     }
 
